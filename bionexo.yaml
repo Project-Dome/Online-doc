@@ -1,23 +1,156 @@
 openapi: 3.0.1
 info:
   title: NetSuite REST Record API
-  description: NetSuite REST Record API generated 2024-09-12 at 17:55:30 UTC for account 3922420, user dmodesto@projectdome.com.br with role Administrator.
+  description: NetSuite REST Record API generated 2024-09-19 at 01:18:22 UTC for account 3922420_SB1, user dmodesto@projectdome.com.br with role Administrator.
   termsOfService: http://www.netsuite.com/portal/resource/terms-of-service.shtml
   contact:
     name: Oracle NetSuite
     url: http://www.netsuite.com
     email: info@netsuite.com
-  version: v1.2
+  version: v1
   x-framework:
     name: oracle-netsuite-suitetalk-rest
 servers:
-  # Added by API Auto Mocking Plugin
-  - description: SwaggerHub API Auto Mocking
-    url: https://virtserver.swaggerhub.com/diego.modesto/Bionexo/v1.2
-  - url: https://3922420.suitetalk.api.netsuite.com/services/rest/record/v1
+  - url: https://3922420-sb1.suitetalk.api.netsuite.com/services/rest/record/v1
 security:
   - OAuth_1.0_authorization: []
 paths:
+  /customlist_pd_sb_category_customer:
+    get:
+      tags:
+        - Customlist_pd_sb_category_customer
+      summary: Get list of records.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: q
+          in: query
+          description: The search query that is used to filter results.
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: The limit used to specify the number of results on a single page.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1000
+        - name: offset
+          in: query
+          description: The offset used for selecting a specific page of results.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+      responses:
+        '200':
+          description: List of records.
+          content:
+            application/vnd.oracle.resource+json; type=collection:
+              schema:
+                $ref: '#/components/schemas/customlist_pd_sb_category_customerCollection'
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+    post:
+      tags:
+        - Customlist_pd_sb_category_customer
+      summary: Insert record.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: replace
+          in: query
+          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple sublists:
+              value: sublist1,subrecord.sublist2
+            sublist on subrecord:
+              value: subrecord.sublist
+            single sublist:
+              value: sublist
+        - name: X-NetSuite-PropertyNameValidation
+          in: header
+          description: Sets the strictness of property name validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Warning
+        - name: X-NetSuite-PropertyValueValidation
+          in: header
+          description: Sets the strictness of property value validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Error
+      requestBody:
+        description: Request body.
+        content:
+          application/vnd.oracle.resource+json; type=singular:
+            schema:
+              $ref: '#/components/schemas/customlist_pd_sb_category_customer'
+        required: true
+      responses:
+        '204':
+          description: Inserted record.
+          headers:
+            X-NetSuite-PropertyValidation:
+              description: The description of a property validation failure.
+              required: false
+              schema:
+                type: string
+            X-NetSuite-Warning:
+              description: Warning messages that occurred during processing.
+              required: false
+              schema:
+                type: string
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
   /inventoryItem:
     get:
       tags:
@@ -154,6 +287,414 @@ paths:
             application/vnd.oracle.resource+json; type=error:
               schema:
                 $ref: '#/components/schemas/nsError'
+  /customrecord_pd_family_product:
+    get:
+      tags:
+        - Customrecord_pd_family_product
+      summary: Get list of records.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: q
+          in: query
+          description: The search query that is used to filter results.
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: The limit used to specify the number of results on a single page.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1000
+        - name: offset
+          in: query
+          description: The offset used for selecting a specific page of results.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+      responses:
+        '200':
+          description: List of records.
+          content:
+            application/vnd.oracle.resource+json; type=collection:
+              schema:
+                $ref: '#/components/schemas/customrecord_pd_family_productCollection'
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+    post:
+      tags:
+        - Customrecord_pd_family_product
+      summary: Insert record.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: replace
+          in: query
+          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple sublists:
+              value: sublist1,subrecord.sublist2
+            sublist on subrecord:
+              value: subrecord.sublist
+            single sublist:
+              value: sublist
+        - name: X-NetSuite-PropertyNameValidation
+          in: header
+          description: Sets the strictness of property name validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Warning
+        - name: X-NetSuite-PropertyValueValidation
+          in: header
+          description: Sets the strictness of property value validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Error
+      requestBody:
+        description: Request body.
+        content:
+          application/vnd.oracle.resource+json; type=singular:
+            schema:
+              $ref: '#/components/schemas/customrecord_pd_family_product'
+        required: true
+      responses:
+        '204':
+          description: Inserted record.
+          headers:
+            X-NetSuite-PropertyValidation:
+              description: The description of a property validation failure.
+              required: false
+              schema:
+                type: string
+            X-NetSuite-Warning:
+              description: Warning messages that occurred during processing.
+              required: false
+              schema:
+                type: string
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+  /customlist_pd_cdp_priority:
+    get:
+      tags:
+        - Customlist_pd_cdp_priority
+      summary: Get list of records.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: q
+          in: query
+          description: The search query that is used to filter results.
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: The limit used to specify the number of results on a single page.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1000
+        - name: offset
+          in: query
+          description: The offset used for selecting a specific page of results.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+      responses:
+        '200':
+          description: List of records.
+          content:
+            application/vnd.oracle.resource+json; type=collection:
+              schema:
+                $ref: '#/components/schemas/customlist_pd_cdp_priorityCollection'
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+    post:
+      tags:
+        - Customlist_pd_cdp_priority
+      summary: Insert record.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: replace
+          in: query
+          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple sublists:
+              value: sublist1,subrecord.sublist2
+            sublist on subrecord:
+              value: subrecord.sublist
+            single sublist:
+              value: sublist
+        - name: X-NetSuite-PropertyNameValidation
+          in: header
+          description: Sets the strictness of property name validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Warning
+        - name: X-NetSuite-PropertyValueValidation
+          in: header
+          description: Sets the strictness of property value validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Error
+      requestBody:
+        description: Request body.
+        content:
+          application/vnd.oracle.resource+json; type=singular:
+            schema:
+              $ref: '#/components/schemas/customlist_pd_cdp_priority'
+        required: true
+      responses:
+        '204':
+          description: Inserted record.
+          headers:
+            X-NetSuite-PropertyValidation:
+              description: The description of a property validation failure.
+              required: false
+              schema:
+                type: string
+            X-NetSuite-Warning:
+              description: Warning messages that occurred during processing.
+              required: false
+              schema:
+                type: string
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+  /customlist_pd_list_rcm_scm:
+    get:
+      tags:
+        - Customlist_pd_list_rcm_scm
+      summary: Get list of records.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: q
+          in: query
+          description: The search query that is used to filter results.
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: The limit used to specify the number of results on a single page.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1000
+        - name: offset
+          in: query
+          description: The offset used for selecting a specific page of results.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+      responses:
+        '200':
+          description: List of records.
+          content:
+            application/vnd.oracle.resource+json; type=collection:
+              schema:
+                $ref: '#/components/schemas/customlist_pd_list_rcm_scmCollection'
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+    post:
+      tags:
+        - Customlist_pd_list_rcm_scm
+      summary: Insert record.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: replace
+          in: query
+          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple sublists:
+              value: sublist1,subrecord.sublist2
+            sublist on subrecord:
+              value: subrecord.sublist
+            single sublist:
+              value: sublist
+        - name: X-NetSuite-PropertyNameValidation
+          in: header
+          description: Sets the strictness of property name validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Warning
+        - name: X-NetSuite-PropertyValueValidation
+          in: header
+          description: Sets the strictness of property value validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Error
+      requestBody:
+        description: Request body.
+        content:
+          application/vnd.oracle.resource+json; type=singular:
+            schema:
+              $ref: '#/components/schemas/customlist_pd_list_rcm_scm'
+        required: true
+      responses:
+        '204':
+          description: Inserted record.
+          headers:
+            X-NetSuite-PropertyValidation:
+              description: The description of a property validation failure.
+              required: false
+              schema:
+                type: string
+            X-NetSuite-Warning:
+              description: Warning messages that occurred during processing.
+              required: false
+              schema:
+                type: string
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
   /customrecord_pd_cdi_implantation:
     get:
       tags:
@@ -269,6 +810,142 @@ paths:
           application/vnd.oracle.resource+json; type=singular:
             schema:
               $ref: '#/components/schemas/customrecord_pd_cdi_implantation'
+        required: true
+      responses:
+        '204':
+          description: Inserted record.
+          headers:
+            X-NetSuite-PropertyValidation:
+              description: The description of a property validation failure.
+              required: false
+              schema:
+                type: string
+            X-NetSuite-Warning:
+              description: Warning messages that occurred during processing.
+              required: false
+              schema:
+                type: string
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+  /customlist_pd_cdp_status:
+    get:
+      tags:
+        - Customlist_pd_cdp_status
+      summary: Get list of records.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: q
+          in: query
+          description: The search query that is used to filter results.
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: The limit used to specify the number of results on a single page.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1000
+        - name: offset
+          in: query
+          description: The offset used for selecting a specific page of results.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+      responses:
+        '200':
+          description: List of records.
+          content:
+            application/vnd.oracle.resource+json; type=collection:
+              schema:
+                $ref: '#/components/schemas/customlist_pd_cdp_statusCollection'
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+    post:
+      tags:
+        - Customlist_pd_cdp_status
+      summary: Insert record.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: replace
+          in: query
+          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple sublists:
+              value: sublist1,subrecord.sublist2
+            sublist on subrecord:
+              value: subrecord.sublist
+            single sublist:
+              value: sublist
+        - name: X-NetSuite-PropertyNameValidation
+          in: header
+          description: Sets the strictness of property name validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Warning
+        - name: X-NetSuite-PropertyValueValidation
+          in: header
+          description: Sets the strictness of property value validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Error
+      requestBody:
+        description: Request body.
+        content:
+          application/vnd.oracle.resource+json; type=singular:
+            schema:
+              $ref: '#/components/schemas/customlist_pd_cdp_status'
         required: true
       responses:
         '204':
@@ -562,142 +1239,6 @@ paths:
             application/vnd.oracle.resource+json; type=error:
               schema:
                 $ref: '#/components/schemas/nsError'
-  /salesOrder:
-    get:
-      tags:
-        - SalesOrder
-      summary: Get list of records.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: q
-          in: query
-          description: The search query that is used to filter results.
-          required: false
-          schema:
-            type: string
-        - name: limit
-          in: query
-          description: The limit used to specify the number of results on a single page.
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 1000
-        - name: offset
-          in: query
-          description: The offset used for selecting a specific page of results.
-          required: false
-          schema:
-            type: integer
-            format: int32
-            default: 0
-      responses:
-        '200':
-          description: List of records.
-          content:
-            application/vnd.oracle.resource+json; type=collection:
-              schema:
-                $ref: '#/components/schemas/salesOrderCollection'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    post:
-      tags:
-        - SalesOrder
-      summary: Insert record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/salesOrder'
-        required: true
-      responses:
-        '204':
-          description: Inserted record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
   /customrecord_pd_cdp_portal:
     get:
       tags:
@@ -834,6 +1375,349 @@ paths:
             application/vnd.oracle.resource+json; type=error:
               schema:
                 $ref: '#/components/schemas/nsError'
+  /salesOrder:
+    get:
+      tags:
+        - SalesOrder
+      summary: Get list of records.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: q
+          in: query
+          description: The search query that is used to filter results.
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: The limit used to specify the number of results on a single page.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1000
+        - name: offset
+          in: query
+          description: The offset used for selecting a specific page of results.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+      responses:
+        '200':
+          description: List of records.
+          content:
+            application/vnd.oracle.resource+json; type=collection:
+              schema:
+                $ref: '#/components/schemas/salesOrderCollection'
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+    post:
+      tags:
+        - SalesOrder
+      summary: Insert record.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: replace
+          in: query
+          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple sublists:
+              value: sublist1,subrecord.sublist2
+            sublist on subrecord:
+              value: subrecord.sublist
+            single sublist:
+              value: sublist
+        - name: X-NetSuite-PropertyNameValidation
+          in: header
+          description: Sets the strictness of property name validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Warning
+        - name: X-NetSuite-PropertyValueValidation
+          in: header
+          description: Sets the strictness of property value validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Error
+      requestBody:
+        description: Request body.
+        content:
+          application/vnd.oracle.resource+json; type=singular:
+            schema:
+              $ref: '#/components/schemas/salesOrder'
+        required: true
+      responses:
+        '204':
+          description: Inserted record.
+          headers:
+            X-NetSuite-PropertyValidation:
+              description: The description of a property validation failure.
+              required: false
+              schema:
+                type: string
+            X-NetSuite-Warning:
+              description: Warning messages that occurred during processing.
+              required: false
+              schema:
+                type: string
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+  /customlist_pd_origin_case:
+    get:
+      tags:
+        - Customlist_pd_origin_case
+      summary: Get list of records.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: q
+          in: query
+          description: The search query that is used to filter results.
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: The limit used to specify the number of results on a single page.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1000
+        - name: offset
+          in: query
+          description: The offset used for selecting a specific page of results.
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 0
+      responses:
+        '200':
+          description: List of records.
+          content:
+            application/vnd.oracle.resource+json; type=collection:
+              schema:
+                $ref: '#/components/schemas/customlist_pd_origin_caseCollection'
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+    post:
+      tags:
+        - Customlist_pd_origin_case
+      summary: Insert record.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: replace
+          in: query
+          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple sublists:
+              value: sublist1,subrecord.sublist2
+            sublist on subrecord:
+              value: subrecord.sublist
+            single sublist:
+              value: sublist
+        - name: X-NetSuite-PropertyNameValidation
+          in: header
+          description: Sets the strictness of property name validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Warning
+        - name: X-NetSuite-PropertyValueValidation
+          in: header
+          description: Sets the strictness of property value validation.
+          required: false
+          schema:
+            type: string
+            enum:
+              - Error
+              - Warning
+              - Ignore
+            default: Error
+      requestBody:
+        description: Request body.
+        content:
+          application/vnd.oracle.resource+json; type=singular:
+            schema:
+              $ref: '#/components/schemas/customlist_pd_origin_case'
+        required: true
+      responses:
+        '204':
+          description: Inserted record.
+          headers:
+            X-NetSuite-PropertyValidation:
+              description: The description of a property validation failure.
+              required: false
+              schema:
+                type: string
+            X-NetSuite-Warning:
+              description: Warning messages that occurred during processing.
+              required: false
+              schema:
+                type: string
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+  /customlist_pd_sb_category_customer/{id}:
+    get:
+      tags:
+        - Customlist_pd_sb_category_customer
+      summary: Get record.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: Internal identifier.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: expandSubResources
+          in: query
+          description: Set to 'true' to automatically expand all sublists, sublist lines, and subrecords on this record.
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: simpleEnumFormat
+          in: query
+          description: Set to true to return enumeration values in a format that only shows the internal ID value.
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: fields
+          in: query
+          description: The names of the fields and sublists on the record. Only the selected fields and sublists will be returned in the response.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple fields:
+              value: field1,field2
+            single field:
+              value: field
+      responses:
+        '200':
+          description: Retrieved record.
+          headers:
+            X-NetSuite-Warning:
+              description: Warning messages that occurred during processing.
+              required: false
+              schema:
+                type: string
+          content:
+            application/vnd.oracle.resource+json; type=singular:
+              schema:
+                $ref: '#/components/schemas/customlist_pd_sb_category_customer'
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
   /inventoryItem/{id}:
     get:
       tags:
@@ -905,105 +1789,11 @@ paths:
             application/vnd.oracle.resource+json; type=error:
               schema:
                 $ref: '#/components/schemas/nsError'
-    put:
+  /customrecord_pd_family_product/{id}:
+    get:
       tags:
-        - InventoryItem
-      summary: Insert or update record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: External identifier.
-          required: true
-          schema:
-            pattern: eid:(.+)
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: replaceSelectedFields
-          in: query
-          description: If set to 'true', all fields that should be deleted in the update request, including body fields, must be included in the 'replace' query parameter.
-          required: false
-          schema:
-            type: boolean
-            default: false
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/inventoryItem'
-        required: true
-      responses:
-        '204':
-          description: Upserted record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    delete:
-      tags:
-        - InventoryItem
-      summary: Remove record.
+        - Customrecord_pd_family_product
+      summary: Get record.
       parameters:
         - name: Prefer
           in: header
@@ -1026,19 +1816,55 @@ paths:
           schema:
             type: integer
             format: int32
+        - name: expandSubResources
+          in: query
+          description: Set to 'true' to automatically expand all sublists, sublist lines, and subrecords on this record.
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: simpleEnumFormat
+          in: query
+          description: Set to true to return enumeration values in a format that only shows the internal ID value.
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: fields
+          in: query
+          description: The names of the fields and sublists on the record. Only the selected fields and sublists will be returned in the response.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple fields:
+              value: field1,field2
+            single field:
+              value: field
       responses:
-        '204':
-          description: Removed record.
+        '200':
+          description: Retrieved record.
+          headers:
+            X-NetSuite-Warning:
+              description: Warning messages that occurred during processing.
+              required: false
+              schema:
+                type: string
+          content:
+            application/vnd.oracle.resource+json; type=singular:
+              schema:
+                $ref: '#/components/schemas/customrecord_pd_family_product'
         default:
           description: Error response.
           content:
             application/vnd.oracle.resource+json; type=error:
               schema:
                 $ref: '#/components/schemas/nsError'
-    patch:
+  /customlist_pd_cdp_priority/{id}:
+    get:
       tags:
-        - InventoryItem
-      summary: Update record.
+        - Customlist_pd_cdp_priority
+      summary: Get record.
       parameters:
         - name: Prefer
           in: header
@@ -1061,69 +1887,115 @@ paths:
           schema:
             type: integer
             format: int32
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
+        - name: expandSubResources
           in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: replaceSelectedFields
-          in: query
-          description: If set to 'true', all fields that should be deleted in the update request, including body fields, must be included in the 'replace' query parameter.
+          description: Set to 'true' to automatically expand all sublists, sublist lines, and subrecords on this record.
           required: false
           schema:
             type: boolean
             default: false
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/inventoryItem'
-        required: true
+        - name: simpleEnumFormat
+          in: query
+          description: Set to true to return enumeration values in a format that only shows the internal ID value.
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: fields
+          in: query
+          description: The names of the fields and sublists on the record. Only the selected fields and sublists will be returned in the response.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple fields:
+              value: field1,field2
+            single field:
+              value: field
       responses:
-        '204':
-          description: Updated record.
+        '200':
+          description: Retrieved record.
           headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
             X-NetSuite-Warning:
               description: Warning messages that occurred during processing.
               required: false
               schema:
                 type: string
+          content:
+            application/vnd.oracle.resource+json; type=singular:
+              schema:
+                $ref: '#/components/schemas/customlist_pd_cdp_priority'
+        default:
+          description: Error response.
+          content:
+            application/vnd.oracle.resource+json; type=error:
+              schema:
+                $ref: '#/components/schemas/nsError'
+  /customlist_pd_list_rcm_scm/{id}:
+    get:
+      tags:
+        - Customlist_pd_list_rcm_scm
+      summary: Get record.
+      parameters:
+        - name: Prefer
+          in: header
+          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
+          required: false
+          schema:
+            type: string
+            enum:
+              - respond-async
+        - name: X-NetSuite-Idempotency-Key
+          in: header
+          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
+          required: false
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: Internal identifier.
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: expandSubResources
+          in: query
+          description: Set to 'true' to automatically expand all sublists, sublist lines, and subrecords on this record.
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: simpleEnumFormat
+          in: query
+          description: Set to true to return enumeration values in a format that only shows the internal ID value.
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: fields
+          in: query
+          description: The names of the fields and sublists on the record. Only the selected fields and sublists will be returned in the response.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple fields:
+              value: field1,field2
+            single field:
+              value: field
+      responses:
+        '200':
+          description: Retrieved record.
+          headers:
+            X-NetSuite-Warning:
+              description: Warning messages that occurred during processing.
+              required: false
+              schema:
+                type: string
+          content:
+            application/vnd.oracle.resource+json; type=singular:
+              schema:
+                $ref: '#/components/schemas/customlist_pd_list_rcm_scm'
         default:
           description: Error response.
           content:
@@ -1201,105 +2073,11 @@ paths:
             application/vnd.oracle.resource+json; type=error:
               schema:
                 $ref: '#/components/schemas/nsError'
-    put:
+  /customlist_pd_cdp_status/{id}:
+    get:
       tags:
-        - Customrecord_pd_cdi_implantation
-      summary: Insert or update record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: External identifier.
-          required: true
-          schema:
-            pattern: eid:(.+)
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: replaceSelectedFields
-          in: query
-          description: If set to 'true', all fields that should be deleted in the update request, including body fields, must be included in the 'replace' query parameter.
-          required: false
-          schema:
-            type: boolean
-            default: false
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/customrecord_pd_cdi_implantation'
-        required: true
-      responses:
-        '204':
-          description: Upserted record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    delete:
-      tags:
-        - Customrecord_pd_cdi_implantation
-      summary: Remove record.
+        - Customlist_pd_cdp_status
+      summary: Get record.
       parameters:
         - name: Prefer
           in: header
@@ -1322,104 +2100,44 @@ paths:
           schema:
             type: integer
             format: int32
-      responses:
-        '204':
-          description: Removed record.
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    patch:
-      tags:
-        - Customrecord_pd_cdi_implantation
-      summary: Update record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
+        - name: expandSubResources
           in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: replaceSelectedFields
-          in: query
-          description: If set to 'true', all fields that should be deleted in the update request, including body fields, must be included in the 'replace' query parameter.
+          description: Set to 'true' to automatically expand all sublists, sublist lines, and subrecords on this record.
           required: false
           schema:
             type: boolean
             default: false
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/customrecord_pd_cdi_implantation'
-        required: true
+        - name: simpleEnumFormat
+          in: query
+          description: Set to true to return enumeration values in a format that only shows the internal ID value.
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: fields
+          in: query
+          description: The names of the fields and sublists on the record. Only the selected fields and sublists will be returned in the response.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple fields:
+              value: field1,field2
+            single field:
+              value: field
       responses:
-        '204':
-          description: Updated record.
+        '200':
+          description: Retrieved record.
           headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
             X-NetSuite-Warning:
               description: Warning messages that occurred during processing.
               required: false
               schema:
                 type: string
+          content:
+            application/vnd.oracle.resource+json; type=singular:
+              schema:
+                $ref: '#/components/schemas/customlist_pd_cdp_status'
         default:
           description: Error response.
           content:
@@ -1497,231 +2215,6 @@ paths:
             application/vnd.oracle.resource+json; type=error:
               schema:
                 $ref: '#/components/schemas/nsError'
-    put:
-      tags:
-        - Customer
-      summary: Insert or update record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: External identifier.
-          required: true
-          schema:
-            pattern: eid:(.+)
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: replaceSelectedFields
-          in: query
-          description: If set to 'true', all fields that should be deleted in the update request, including body fields, must be included in the 'replace' query parameter.
-          required: false
-          schema:
-            type: boolean
-            default: false
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/customer'
-        required: true
-      responses:
-        '204':
-          description: Upserted record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    delete:
-      tags:
-        - Customer
-      summary: Remove record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '204':
-          description: Removed record.
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    patch:
-      tags:
-        - Customer
-      summary: Update record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: replaceSelectedFields
-          in: query
-          description: If set to 'true', all fields that should be deleted in the update request, including body fields, must be included in the 'replace' query parameter.
-          required: false
-          schema:
-            type: boolean
-            default: false
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/customer'
-        required: true
-      responses:
-        '204':
-          description: Updated record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
   /customrecord_pd_cdb_block_unblock/{id}:
     get:
       tags:
@@ -1787,527 +2280,6 @@ paths:
             application/vnd.oracle.resource+json; type=singular:
               schema:
                 $ref: '#/components/schemas/customrecord_pd_cdb_block_unblock'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    put:
-      tags:
-        - Customrecord_pd_cdb_block_unblock
-      summary: Insert or update record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: External identifier.
-          required: true
-          schema:
-            pattern: eid:(.+)
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: replaceSelectedFields
-          in: query
-          description: If set to 'true', all fields that should be deleted in the update request, including body fields, must be included in the 'replace' query parameter.
-          required: false
-          schema:
-            type: boolean
-            default: false
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/customrecord_pd_cdb_block_unblock'
-        required: true
-      responses:
-        '204':
-          description: Upserted record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    delete:
-      tags:
-        - Customrecord_pd_cdb_block_unblock
-      summary: Remove record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '204':
-          description: Removed record.
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    patch:
-      tags:
-        - Customrecord_pd_cdb_block_unblock
-      summary: Update record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: replaceSelectedFields
-          in: query
-          description: If set to 'true', all fields that should be deleted in the update request, including body fields, must be included in the 'replace' query parameter.
-          required: false
-          schema:
-            type: boolean
-            default: false
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/customrecord_pd_cdb_block_unblock'
-        required: true
-      responses:
-        '204':
-          description: Updated record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-  /salesOrder/{id}:
-    get:
-      tags:
-        - SalesOrder
-      summary: Get record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - name: expandSubResources
-          in: query
-          description: Set to 'true' to automatically expand all sublists, sublist lines, and subrecords on this record.
-          required: false
-          schema:
-            type: boolean
-            default: false
-        - name: simpleEnumFormat
-          in: query
-          description: Set to true to return enumeration values in a format that only shows the internal ID value.
-          required: false
-          schema:
-            type: boolean
-            default: false
-        - name: fields
-          in: query
-          description: The names of the fields and sublists on the record. Only the selected fields and sublists will be returned in the response.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple fields:
-              value: field1,field2
-            single field:
-              value: field
-      responses:
-        '200':
-          description: Retrieved record.
-          headers:
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-          content:
-            application/vnd.oracle.resource+json; type=singular:
-              schema:
-                $ref: '#/components/schemas/salesOrder'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    put:
-      tags:
-        - SalesOrder
-      summary: Insert or update record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: External identifier.
-          required: true
-          schema:
-            pattern: eid:(.+)
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: replaceSelectedFields
-          in: query
-          description: If set to 'true', all fields that should be deleted in the update request, including body fields, must be included in the 'replace' query parameter.
-          required: false
-          schema:
-            type: boolean
-            default: false
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/salesOrder'
-        required: true
-      responses:
-        '204':
-          description: Upserted record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    delete:
-      tags:
-        - SalesOrder
-      summary: Remove record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '204':
-          description: Removed record.
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    patch:
-      tags:
-        - SalesOrder
-      summary: Update record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: replaceSelectedFields
-          in: query
-          description: If set to 'true', all fields that should be deleted in the update request, including body fields, must be included in the 'replace' query parameter.
-          required: false
-          schema:
-            type: boolean
-            default: false
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/salesOrder'
-        required: true
-      responses:
-        '204':
-          description: Updated record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
         default:
           description: Error response.
           content:
@@ -2385,10 +2357,11 @@ paths:
             application/vnd.oracle.resource+json; type=error:
               schema:
                 $ref: '#/components/schemas/nsError'
-    put:
+  /salesOrder/{id}:
+    get:
       tags:
-        - Customrecord_pd_cdp_portal
-      summary: Insert or update record.
+        - SalesOrder
+      summary: Get record.
       parameters:
         - name: Prefer
           in: header
@@ -2406,846 +2379,40 @@ paths:
             type: string
         - name: id
           in: path
-          description: External identifier.
+          description: Internal identifier.
           required: true
           schema:
-            pattern: eid:(.+)
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
+            type: integer
+            format: int32
+        - name: expandSubResources
           in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: replaceSelectedFields
-          in: query
-          description: If set to 'true', all fields that should be deleted in the update request, including body fields, must be included in the 'replace' query parameter.
+          description: Set to 'true' to automatically expand all sublists, sublist lines, and subrecords on this record.
           required: false
           schema:
             type: boolean
             default: false
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/customrecord_pd_cdp_portal'
-        required: true
-      responses:
-        '204':
-          description: Upserted record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    delete:
-      tags:
-        - Customrecord_pd_cdp_portal
-      summary: Remove record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      responses:
-        '204':
-          description: Removed record.
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-    patch:
-      tags:
-        - Customrecord_pd_cdp_portal
-      summary: Update record.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
+        - name: simpleEnumFormat
           in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: replaceSelectedFields
-          in: query
-          description: If set to 'true', all fields that should be deleted in the update request, including body fields, must be included in the 'replace' query parameter.
+          description: Set to true to return enumeration values in a format that only shows the internal ID value.
           required: false
           schema:
             type: boolean
             default: false
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/customrecord_pd_cdp_portal'
-        required: true
-      responses:
-        '204':
-          description: Updated record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-  /customer/{id}/!transform/customerPayment:
-    post:
-      tags:
-        - Customer
-      summary: Transform to customerPayment.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
+        - name: fields
           in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
+          description: The names of the fields and sublists on the record. Only the selected fields and sublists will be returned in the response.
           required: false
           schema:
             type: string
           examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/nsResource'
-        required: true
+            multiple fields:
+              value: field1,field2
+            single field:
+              value: field
       responses:
-        '204':
-          description: Transformed record.
+        '200':
+          description: Retrieved record.
           headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-          content:
-            application/vnd.oracle.resource+json; type=singular:
-              schema:
-                $ref: '#/components/schemas/nsResource'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-  /customer/{id}/!transform/cashSale:
-    post:
-      tags:
-        - Customer
-      summary: Transform to cashSale.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/nsResource'
-        required: true
-      responses:
-        '204':
-          description: Transformed record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-          content:
-            application/vnd.oracle.resource+json; type=singular:
-              schema:
-                $ref: '#/components/schemas/nsResource'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-  /customer/{id}/!transform/vendor:
-    post:
-      tags:
-        - Customer
-      summary: Transform to vendor.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/nsResource'
-        required: true
-      responses:
-        '204':
-          description: Transformed record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-          content:
-            application/vnd.oracle.resource+json; type=singular:
-              schema:
-                $ref: '#/components/schemas/nsResource'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-  /customer/{id}/!transform/estimate:
-    post:
-      tags:
-        - Customer
-      summary: Transform to estimate.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/nsResource'
-        required: true
-      responses:
-        '204':
-          description: Transformed record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-          content:
-            application/vnd.oracle.resource+json; type=singular:
-              schema:
-                $ref: '#/components/schemas/nsResource'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-  /customer/{id}/!transform/opportunity:
-    post:
-      tags:
-        - Customer
-      summary: Transform to opportunity.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/nsResource'
-        required: true
-      responses:
-        '204':
-          description: Transformed record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-          content:
-            application/vnd.oracle.resource+json; type=singular:
-              schema:
-                $ref: '#/components/schemas/nsResource'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-  /customer/{id}/!transform/invoice:
-    post:
-      tags:
-        - Customer
-      summary: Transform to invoice.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/nsResource'
-        required: true
-      responses:
-        '204':
-          description: Transformed record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-          content:
-            application/vnd.oracle.resource+json; type=singular:
-              schema:
-                $ref: '#/components/schemas/nsResource'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-  /customer/{id}/!transform/salesOrder:
-    post:
-      tags:
-        - Customer
-      summary: Transform to salesOrder.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/salesOrder'
-        required: true
-      responses:
-        '204':
-          description: Transformed record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
             X-NetSuite-Warning:
               description: Warning messages that occurred during processing.
               required: false
@@ -3261,11 +2428,11 @@ paths:
             application/vnd.oracle.resource+json; type=error:
               schema:
                 $ref: '#/components/schemas/nsError'
-  /salesOrder/{id}/!transform/returnAuthorization:
-    post:
+  /customlist_pd_origin_case/{id}:
+    get:
       tags:
-        - SalesOrder
-      summary: Transform to returnAuthorization.
+        - Customlist_pd_origin_case
+      summary: Get record.
       parameters:
         - name: Prefer
           in: header
@@ -3281,41 +2448,6 @@ paths:
           required: false
           schema:
             type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
         - name: id
           in: path
           description: Internal identifier.
@@ -3323,22 +2455,35 @@ paths:
           schema:
             type: integer
             format: int32
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/nsResource'
-        required: true
+        - name: expandSubResources
+          in: query
+          description: Set to 'true' to automatically expand all sublists, sublist lines, and subrecords on this record.
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: simpleEnumFormat
+          in: query
+          description: Set to true to return enumeration values in a format that only shows the internal ID value.
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: fields
+          in: query
+          description: The names of the fields and sublists on the record. Only the selected fields and sublists will be returned in the response.
+          required: false
+          schema:
+            type: string
+          examples:
+            multiple fields:
+              value: field1,field2
+            single field:
+              value: field
       responses:
-        '204':
-          description: Transformed record.
+        '200':
+          description: Retrieved record.
           headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
             X-NetSuite-Warning:
               description: Warning messages that occurred during processing.
               required: false
@@ -3347,385 +2492,14 @@ paths:
           content:
             application/vnd.oracle.resource+json; type=singular:
               schema:
-                $ref: '#/components/schemas/nsResource'
+                $ref: '#/components/schemas/customlist_pd_origin_case'
         default:
           description: Error response.
           content:
             application/vnd.oracle.resource+json; type=error:
               schema:
                 $ref: '#/components/schemas/nsError'
-  /salesOrder/{id}/!transform/cashSale:
-    post:
-      tags:
-        - SalesOrder
-      summary: Transform to cashSale.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/nsResource'
-        required: true
-      responses:
-        '204':
-          description: Transformed record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-          content:
-            application/vnd.oracle.resource+json; type=singular:
-              schema:
-                $ref: '#/components/schemas/nsResource'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-  /salesOrder/{id}/!transform/itemFulfillment:
-    post:
-      tags:
-        - SalesOrder
-      summary: Transform to itemFulfillment.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/nsResource'
-        required: true
-      responses:
-        '204':
-          description: Transformed record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-          content:
-            application/vnd.oracle.resource+json; type=singular:
-              schema:
-                $ref: '#/components/schemas/nsResource'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-  /salesOrder/{id}/!transform/fulfillmentRequest:
-    post:
-      tags:
-        - SalesOrder
-      summary: Transform to fulfillmentRequest.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/nsResource'
-        required: true
-      responses:
-        '204':
-          description: Transformed record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-          content:
-            application/vnd.oracle.resource+json; type=singular:
-              schema:
-                $ref: '#/components/schemas/nsResource'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
-  /salesOrder/{id}/!transform/invoice:
-    post:
-      tags:
-        - SalesOrder
-      summary: Transform to invoice.
-      parameters:
-        - name: Prefer
-          in: header
-          description: 'The server behavior requested by the client. Use ''respond-async'' to execute the request asynchronously. If the request is executed asynchronously, ''Preference-applied: respond-async'' is returned in the response.'
-          required: false
-          schema:
-            type: string
-            enum:
-              - respond-async
-        - name: X-NetSuite-Idempotency-Key
-          in: header
-          description: A user-defined unique idempotency key that is applied to every asynchronous requests to ensure that the request is executed only once. Only one request can be executed with every unique idempotency key. Use UUID in string format as defined by RFC 4122. If the request is executed synchronously, this value is ignored.
-          required: false
-          schema:
-            type: string
-        - name: X-NetSuite-PropertyNameValidation
-          in: header
-          description: Sets the strictness of property name validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Warning
-        - name: X-NetSuite-PropertyValueValidation
-          in: header
-          description: Sets the strictness of property value validation.
-          required: false
-          schema:
-            type: string
-            enum:
-              - Error
-              - Warning
-              - Ignore
-            default: Error
-        - name: replace
-          in: query
-          description: The names of sublists on this record. All sublist lines will be replaced with lines specified in the request. The names are delimited by comma.
-          required: false
-          schema:
-            type: string
-          examples:
-            multiple sublists:
-              value: sublist1,subrecord.sublist2
-            sublist on subrecord:
-              value: subrecord.sublist
-            single sublist:
-              value: sublist
-        - name: id
-          in: path
-          description: Internal identifier.
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        description: Request body.
-        content:
-          application/vnd.oracle.resource+json; type=singular:
-            schema:
-              $ref: '#/components/schemas/nsResource'
-        required: true
-      responses:
-        '204':
-          description: Transformed record.
-          headers:
-            X-NetSuite-PropertyValidation:
-              description: The description of a property validation failure.
-              required: false
-              schema:
-                type: string
-            X-NetSuite-Warning:
-              description: Warning messages that occurred during processing.
-              required: false
-              schema:
-                type: string
-          content:
-            application/vnd.oracle.resource+json; type=singular:
-              schema:
-                $ref: '#/components/schemas/nsResource'
-        default:
-          description: Error response.
-          content:
-            application/vnd.oracle.resource+json; type=error:
-              schema:
-                $ref: '#/components/schemas/nsError'
+    
 components:
   schemas:
     salesOrder-accountingBookDetailElement:
@@ -4262,22 +3036,12 @@ components:
           readOnly: true
           items:
             $ref: '#/components/schemas/nsLink'
-        custrecord_pd_cdi_owner_case:
-          $ref: '#/components/schemas/nsResource'
-        lastmodifiedby:
-          oneOf:
-            - $ref: '#/components/schemas/customer'
-            - $ref: '#/components/schemas/nsResource'
         custrecord_pd_cdi_customer_group:
           $ref: '#/components/schemas/nsResource'
         custrecord_pd_cdi_phase:
           $ref: '#/components/schemas/nsResource'
         custrecord_pd_cdi_product:
           $ref: '#/components/schemas/nsResource'
-        custrecord_pd_cdi_profile_company:
-          $ref: '#/components/schemas/nsResource'
-        custrecord_pd_cdi_father_account:
-          $ref: '#/components/schemas/customer'
         custrecord_pd_cdi_status:
           $ref: '#/components/schemas/nsResource'
         owner:
@@ -4286,6 +3050,18 @@ components:
           $ref: '#/components/schemas/nsResource'
         custrecord_pd_cdi_customer:
           $ref: '#/components/schemas/customer'
+        custrecord_pd_cdi_owner_case:
+          $ref: '#/components/schemas/nsResource'
+        lastmodifiedby:
+          oneOf:
+            - $ref: '#/components/schemas/customer'
+            - $ref: '#/components/schemas/nsResource'
+        custrecord_pd_cdi_profile_company:
+          $ref: '#/components/schemas/customlist_pd_sb_category_customer'
+        custrecord_pd_cdi_father_account:
+          $ref: '#/components/schemas/customer'
+        custrecord_pd_cdi_implem_salesorder:
+          $ref: '#/components/schemas/nsResource'
       x-ns-filterable:
         - isInactive
         - custrecord_pd_cdi_owner_case
@@ -4310,6 +3086,7 @@ components:
         - altName
         - abbreviation
         - custrecord_pd_cdi_customer
+        - custrecord_pd_cdi_implem_salesorder
         - custrecord_pd_cdi_real_date_to_start
         - custrecord_pd_cdi_status
         - lastmodified
@@ -4320,6 +3097,56 @@ components:
         - custrecord_pd_cdi_real_date_days
         - custrecord_pd_cdi_customer_group
         - custrecord_pd_cdi_implem_guidelines
+      x-ns-custom-record: true
+    customlist_pd_cdp_status:
+      type: object
+      properties:
+        recordId:
+          title: Record ID
+          type: integer
+          format: int64
+          nullable: true
+          x-ns-custom-field: true
+        isInactive:
+          title: Is Inactive
+          type: boolean
+          x-ns-custom-field: true
+        scriptId:
+          title: Script ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        name:
+          title: Name
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        externalId:
+          title: External ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        id:
+          title: Internal ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        refName:
+          title: Reference Name
+          type: string
+        links:
+          title: Links
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/nsLink'
+      x-ns-filterable:
+        - recordId
+        - isInactive
+        - scriptId
+        - name
+        - externalId
+        - id
       x-ns-custom-record: true
     inventoryItem-itemVendorElement:
       type: object
@@ -4694,6 +3521,12 @@ components:
           type: string
           nullable: true
           x-ns-custom-field: true
+        custrecord_pd_cdp_date_hour_closed:
+          title: PD | Data/hora do Fechamento
+          type: string
+          format: date-time
+          nullable: true
+          x-ns-custom-field: true
         created:
           title: Created
           type: string
@@ -4754,27 +3587,29 @@ components:
         custrecord_pd_cdp_service_by:
           $ref: '#/components/schemas/nsResource'
         custrecord_pd_cdp_profile_customer:
-          $ref: '#/components/schemas/nsResource'
-        custrecord_pd_cdp_product:
-          $ref: '#/components/schemas/nsResource'
+          $ref: '#/components/schemas/customlist_pd_sb_category_customer'
         custrecord_pd_cdp_owner_case:
           $ref: '#/components/schemas/nsResource'
         custrecord_pd_cdp_customer:
           $ref: '#/components/schemas/customer'
+        owner:
+          $ref: '#/components/schemas/nsResource'
+        custrecord_pd_cdp_status:
+          $ref: '#/components/schemas/customlist_pd_cdp_status'
+        custrecord_pd_cdp_father_case:
+          $ref: '#/components/schemas/customrecord_pd_cdp_portal'
+        custrecord_pd_cdp_product:
+          $ref: '#/components/schemas/customrecord_pd_family_product'
         parent:
           $ref: '#/components/schemas/customrecord_pd_cdp_portal'
         lastmodifiedby:
           oneOf:
             - $ref: '#/components/schemas/customer'
             - $ref: '#/components/schemas/nsResource'
-        owner:
-          $ref: '#/components/schemas/nsResource'
         custrecord_pd_cdp_origin_case:
-          $ref: '#/components/schemas/nsResource'
-        custrecord_pd_cdp_status:
-          $ref: '#/components/schemas/nsResource'
+          $ref: '#/components/schemas/customlist_pd_origin_case'
         custrecord_pd_cdp_priority:
-          $ref: '#/components/schemas/nsResource'
+          $ref: '#/components/schemas/customlist_pd_cdp_priority'
       x-ns-filterable:
         - isInactive
         - parent
@@ -4788,6 +3623,7 @@ components:
         - custrecord_pd_cdp_subject
         - custrecord_pd_cdp_cnpj
         - id
+        - custrecord_pd_cdp_date_hour_closed
         - owner
         - created
         - custrecord_pd_cdp_status
@@ -4803,6 +3639,7 @@ components:
         - name
         - custrecord_pd_cdp_owner_case
         - custrecord_pd_cdp_email
+        - custrecord_pd_cdp_father_case
       x-ns-custom-record: true
     inventoryItem-itemVendor-itemVendorPrice-itemvendorpricelinesElement:
       type: object
@@ -4868,6 +3705,90 @@ components:
           type: integer
           format: int64
           readOnly: true
+    customrecord_pd_family_product:
+      type: object
+      properties:
+        isInactive:
+          title: Inactive
+          type: boolean
+          x-ns-custom-field: true
+        created:
+          title: Created
+          type: string
+          format: date-time
+          nullable: true
+          x-ns-custom-field: true
+        externalId:
+          title: External ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        abbreviation:
+          title: Abbreviation
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        recordId:
+          title: Record ID
+          type: integer
+          format: int64
+          nullable: true
+          x-ns-custom-field: true
+        scriptId:
+          title: Script ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        lastmodified:
+          title: Last modified
+          type: string
+          format: date-time
+          nullable: true
+          x-ns-custom-field: true
+        name:
+          title: Name
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        id:
+          title: Internal ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        refName:
+          title: Reference Name
+          type: string
+        links:
+          title: Links
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/nsLink'
+        custrecord_pd_responsible_product:
+          $ref: '#/components/schemas/nsResource'
+        lastmodifiedby:
+          oneOf:
+            - $ref: '#/components/schemas/customer'
+            - $ref: '#/components/schemas/nsResource'
+        custrecord_pd_rcm_scm:
+          $ref: '#/components/schemas/customlist_pd_list_rcm_scm'
+        owner:
+          $ref: '#/components/schemas/nsResource'
+      x-ns-filterable:
+        - owner
+        - isInactive
+        - created
+        - externalId
+        - lastmodifiedby
+        - custrecord_pd_rcm_scm
+        - custrecord_pd_responsible_product
+        - abbreviation
+        - recordId
+        - scriptId
+        - lastmodified
+        - name
+        - id
+      x-ns-custom-record: true
     salesOrder-itemElement:
       type: object
       properties:
@@ -5204,8 +4125,6 @@ components:
           $ref: '#/components/schemas/nsResource'
         custcol_ftebr_l_cfop_code:
           $ref: '#/components/schemas/nsResource'
-        custcol_pd_crm_number_users:
-          $ref: '#/components/schemas/nsResource'
         custcol_dss_crm_plan_price_ls:
           $ref: '#/components/schemas/nsResource'
         custcol_atlas_rc_so:
@@ -5230,8 +4149,6 @@ components:
           $ref: '#/components/schemas/nsResource'
         billingSchedule:
           $ref: '#/components/schemas/nsResource'
-        custcol_pd_crm_cnpj_consumer:
-          $ref: '#/components/schemas/customer'
         poVendor:
           $ref: '#/components/schemas/nsResource'
         subscription:
@@ -5248,19 +4165,9 @@ components:
           $ref: '#/components/schemas/nsResource'
         department:
           $ref: '#/components/schemas/nsResource'
-        custcol_pd_crm_product_family:
-          $ref: '#/components/schemas/nsResource'
         custcol_str_tax_reporting_category:
           $ref: '#/components/schemas/nsResource'
-        custcol_pd_crm_type_billing:
-          $ref: '#/components/schemas/nsResource'
-        custcol_pd_crm_access_region:
-          $ref: '#/components/schemas/nsResource'
         custcol_atlas_return_reason:
-          $ref: '#/components/schemas/nsResource'
-        custcol_pd_crm_cnpj_billing:
-          $ref: '#/components/schemas/customer'
-        custcol_pd_crm_category:
           $ref: '#/components/schemas/nsResource'
         custcol_far_trn_relatedasset:
           $ref: '#/components/schemas/nsResource'
@@ -5591,6 +4498,56 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/customer-partnersElement'
+    customlist_pd_sb_category_customer:
+      type: object
+      properties:
+        recordId:
+          title: Record ID
+          type: integer
+          format: int64
+          nullable: true
+          x-ns-custom-field: true
+        isInactive:
+          title: Is Inactive
+          type: boolean
+          x-ns-custom-field: true
+        scriptId:
+          title: Script ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        name:
+          title: Name
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        externalId:
+          title: External ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        id:
+          title: Internal ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        refName:
+          title: Reference Name
+          type: string
+        links:
+          title: Links
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/nsLink'
+      x-ns-filterable:
+        - recordId
+        - isInactive
+        - scriptId
+        - name
+        - externalId
+        - id
+      x-ns-custom-record: true
     customer-subscriptionMessageHistoryCollection:
       type: object
       properties:
@@ -5655,6 +4612,40 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/salesOrder-itemElement'
+    customlist_pd_cdp_priorityCollection:
+      type: object
+      properties:
+        totalResults:
+          title: Total Results
+          type: integer
+          format: int64
+          readOnly: true
+        items:
+          title: Items
+          type: array
+          description: An array field that represents a collection of elements, for example, sublist lines, multiselect items, or search results.
+          items:
+            $ref: '#/components/schemas/customlist_pd_cdp_priority'
+        links:
+          title: Links
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/nsLink'
+        count:
+          title: Count
+          type: integer
+          format: int64
+          readOnly: true
+        hasMore:
+          title: Has More Results
+          type: boolean
+          readOnly: true
+        offset:
+          title: Query Offset
+          type: integer
+          format: int64
+          readOnly: true
     salesOrder:
       type: object
       properties:
@@ -5864,12 +4855,6 @@ components:
           title: External ID
           type: string
           nullable: true
-        custbody_pd_crm_days_to_due:
-          title: PD | CRM | Dias para o Vencimento
-          type: integer
-          format: int64
-          nullable: true
-          x-ns-custom-field: true
         custbody_pd_sb_zip_payer:
           title: PD | SB | CEP Pagador
           type: string
@@ -6009,6 +4994,11 @@ components:
           title: Shipping Address
           type: string
           nullable: true
+        custbody_pd_pdv_installment_json:
+          title: PDV Installment
+          type: string
+          nullable: true
+          x-ns-custom-field: true
         custbody_psg_ei_pdf:
           title: Referência do arquivo PDF
           type: string
@@ -6335,18 +5325,6 @@ components:
           type: string
           nullable: true
           x-ns-custom-field: true
-        custbody_pd_crm_other_lack_days:
-          title: PD | CRM | Outra Carência em Dias
-          type: integer
-          format: int64
-          nullable: true
-          x-ns-custom-field: true
-        custbody_pd_crm_how_much_monthly_disc:
-          title: PD | CRM | Desconto em Quantas Mensalidades?
-          type: integer
-          format: int64
-          nullable: true
-          x-ns-custom-field: true
         custbody_pd_sb_number_nfse:
           title: PD | SB | Número da NFS-e
           type: string
@@ -6501,6 +5479,11 @@ components:
           nullable: true
         custbody_pd_sb_pdf_nfse_sp_cancel:
           title: PD | SB | PDF NFS-e Cancelada
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        custbody_pd_addresscliente_prosp:
+          title: Address 1 Cliente (prospect)
           type: string
           nullable: true
           x-ns-custom-field: true
@@ -6791,9 +5774,20 @@ components:
           title: PD | SB | Envio de Cancelamento Enviado
           type: boolean
           x-ns-custom-field: true
+        custbodyteste_1:
+          title: teste
+          type: string
+          nullable: true
+          x-ns-custom-field: true
         custbody_brl_tran_t_cert_proto:
           title: Protocolo de autorização
           type: string
+          nullable: true
+          x-ns-custom-field: true
+        custbody_pd_crm_due_date:
+          title: PD | CRM | Vencimento em Dias
+          type: integer
+          format: int64
           nullable: true
           x-ns-custom-field: true
         custbody_brl_tran_t_ref_einvoice:
@@ -7569,12 +6563,6 @@ components:
           format: int64
           nullable: true
           x-ns-custom-field: true
-        custbody_pd_crm_discount_total_monthly:
-          title: PD | CRM | Desconto Total nas Mensalidades
-          type: number
-          format: double
-          nullable: true
-          x-ns-custom-field: true
         intercoStatus:
           type: object
           properties:
@@ -7661,6 +6649,8 @@ components:
           oneOf:
             - $ref: '#/components/schemas/customer'
             - $ref: '#/components/schemas/nsResource'
+        custbody_agr_status:
+          $ref: '#/components/schemas/nsResource'
         billingSchedule:
           $ref: '#/components/schemas/nsResource'
         taxDetails:
@@ -7671,7 +6661,11 @@ components:
           $ref: '#/components/schemas/nsResource'
         custbody_brr_tran_l_orig_invt_assess:
           $ref: '#/components/schemas/nsResource'
+        custbody_pd_crm_access_region:
+          $ref: '#/components/schemas/nsResource'
         custbody_brl_tran_l_mktplc_plform_int:
+          $ref: '#/components/schemas/nsResource'
+        custbody_pd_crm_number_users:
           $ref: '#/components/schemas/nsResource'
         custbody_pd_acd_inv_deal:
           $ref: '#/components/schemas/nsResource'
@@ -7753,10 +6747,6 @@ components:
           $ref: '#/components/schemas/nsResource'
         custbody_pd_crm_special_conditions:
           $ref: '#/components/schemas/nsResource'
-        custbody_pd_crm_owner_implantation:
-          $ref: '#/components/schemas/nsResource'
-        custbody_pd_crm_lgpd_clauses:
-          $ref: '#/components/schemas/nsResource'
         custbody_atlas_yes_hdn:
           $ref: '#/components/schemas/nsResource'
         custbody_pd_crm_deployment_paid_bio:
@@ -7789,8 +6779,6 @@ components:
           oneOf:
             - $ref: '#/components/schemas/customer'
             - $ref: '#/components/schemas/nsResource'
-        custbody_pd_crm_confidentiality_clause:
-          $ref: '#/components/schemas/nsResource'
         custbody_brl_tran_l_import_decl_type:
           $ref: '#/components/schemas/nsResource'
         custbody_dds_des_soli_discount_ls:
@@ -7806,8 +6794,6 @@ components:
         custbody_pd_pcb_type_key:
           $ref: '#/components/schemas/nsResource'
         custbody_brl_tran_l_mode_import:
-          $ref: '#/components/schemas/nsResource'
-        custbody_pd_crm_due_days:
           $ref: '#/components/schemas/nsResource'
         custbody_atlas_no_hdn:
           $ref: '#/components/schemas/nsResource'
@@ -7826,13 +6812,11 @@ components:
         custbody_atlas_exist_cust_hdn:
           $ref: '#/components/schemas/nsResource'
         custbody_pd_crm_profile_company:
-          $ref: '#/components/schemas/nsResource'
+          $ref: '#/components/schemas/customlist_pd_sb_category_customer'
         custbody_pd_crm_lead_source:
           $ref: '#/components/schemas/nsResource'
-        custbody_pd_crm_change_forum:
-          $ref: '#/components/schemas/nsResource'
         custbody_pd_crm_type_record_opport:
-          $ref: '#/components/schemas/nsResource'
+          $ref: '#/components/schemas/customlist_pd_sb_category_customer'
         shipMethod:
           $ref: '#/components/schemas/nsResource'
         custbody_pd_crm_publi_pending:
@@ -7861,11 +6845,11 @@ components:
           $ref: '#/components/schemas/nsResource'
         custbody_pd_crm_current_plan:
           $ref: '#/components/schemas/nsResource'
-        custbody_pd_crm_sla:
-          $ref: '#/components/schemas/nsResource'
         sourceWebSite:
           $ref: '#/components/schemas/nsResource'
         custbody_psg_ei_sending_method:
+          $ref: '#/components/schemas/nsResource'
+        custbody_agr_tran_reneg:
           $ref: '#/components/schemas/nsResource'
         custbody_psg_ei_status:
           $ref: '#/components/schemas/nsResource'
@@ -7884,8 +6868,6 @@ components:
         custbody_pd_crm_rep_legal_contact:
           $ref: '#/components/schemas/nsResource'
         custbody_pd_crm_readjustment_index:
-          $ref: '#/components/schemas/nsResource'
-        custbody_pd_crm_reduce_notice_period:
           $ref: '#/components/schemas/nsResource'
         custbody_brl_tran_l_creation_req:
           $ref: '#/components/schemas/nsResource'
@@ -7909,6 +6891,8 @@ components:
           $ref: '#/components/schemas/nsResource'
         intercoTransaction:
           $ref: '#/components/schemas/nsResource'
+        custbody_pd_crm_category:
+          $ref: '#/components/schemas/nsResource'
         custbody_brl_tran_l_doc_purpose:
           $ref: '#/components/schemas/nsResource'
         custbody_fam_lp_asset:
@@ -7925,8 +6909,6 @@ components:
           $ref: '#/components/schemas/nsResource'
         custbody_pd_pcb_bank_pix:
           $ref: '#/components/schemas/nsResource'
-        custbody_pd_crm_fine:
-          $ref: '#/components/schemas/nsResource'
         custbody_brl_tran_l_entity:
           oneOf:
             - $ref: '#/components/schemas/customer'
@@ -7935,7 +6917,6 @@ components:
           $ref: '#/components/schemas/nsResource'
       x-ns-filterable:
         - custbody_pd_ptpb_field_automatic_bolet
-        - custbody_pd_crm_fine
         - subsidiaryTaxRegNum
         - custbody_brl_tran_c_sat_pis_wheld
         - custbody_brl_tran_t_nosso_num_chk_dig
@@ -7944,7 +6925,6 @@ components:
         - custbody_brl_tran_l_created_from
         - custbody_psg_ei_inb_txn_po_valid_bypas
         - opportunity
-        - custbody_pd_crm_lgpd_clauses
         - custbody_pd_crm_has_discount_qtd_month
         - custbody_brl_tran_t_qr_code
         - custbody_pd_crm_phase_opportunity
@@ -7969,12 +6949,10 @@ components:
         - custbody_fam_lp_totalnpv
         - custbody_pd_crm_finance_phone
         - externalId
-        - custbody_pd_crm_days_to_due
         - custbody_pd_sb_zip_payer
         - toBePrinted
         - custbody_brl_tran_l_mktplc_plform_int
         - custbody_brl_tran_t_edoc_series
-        - custbody_pd_crm_reduce_notice_period
         - custbody_fam_jrn_reversal_date
         - custbody_fam_lp_startdate
         - entityTaxRegNum
@@ -7988,6 +6966,7 @@ components:
         - custbody_brl_tran_l_ted_purpose
         - custbody_pd_crm_has_discount_contract
         - leadSource
+        - custbody_pd_crm_category
         - custbody_ei_network_status
         - custbody_brl_tran_l_doc_purpose
         - custbody_pd_sb_billing_released
@@ -8000,6 +6979,7 @@ components:
         - custbody_pd_crm_nature_institute
         - custbody_brl_tran_l_entity
         - custbody_pd_acd_deal
+        - custbody_pd_pdv_installment_json
         - custbody_pd_crm_rep_legal_contact
         - custbody_psg_ei_status
         - custbody_pd_crm_total_discount_estimat
@@ -8062,9 +7042,6 @@ components:
         - custbody_pd_sb_contacts_receiv_cancel
         - custbody_pd_sb_date_contract
         - custbody_brl_tran_l_def_edoc_category
-        - custbody_pd_crm_other_lack_days
-        - custbody_pd_crm_how_much_monthly_disc
-        - custbody_pd_crm_owner_implantation
         - custbody_pd_pcb_other_beneficiary_pay
         - custbody_brl_tran_i_origin_transaction
         - custbody_brl_tran_l_payment_method
@@ -8097,6 +7074,7 @@ components:
         - custbody_pd_crm_contract_term
         - custbody_pd_crm_tradin_description
         - startDate
+        - custbody_pd_addresscliente_prosp
         - custbody_brl_tran_t_exporter_code
         - custbody_pd_sb_city_payer
         - custbody_ei_network_id
@@ -8111,6 +7089,7 @@ components:
         - custbody_brl_tran_hl_ecs_return_record
         - custbody_brl_tran_t_cust_fed_tx_reg
         - custbody_fam_lp_company
+        - custbody_pd_crm_number_users
         - custbody_pd_crm_sub_phase_opportunity
         - custbody_pd_numero_nf_emitida
         - custbody_brl_tran_dt_rps_date
@@ -8135,6 +7114,7 @@ components:
         - custbody_pd_pcb_distinct_beneficiary
         - custbody_pd_sb_invoice_line_digital
         - email
+        - custbody_agr_tran_reneg
         - custbody_psg_ei_inbound_edocument
         - custbody_brl_tran_dt_sat_date
         - custbody_brl_tran_t_import_lic_num
@@ -8147,17 +7127,21 @@ components:
         - custbody_brl_tran_t_addition_num
         - custbody_pd_crm_name_fantasy
         - custbody_pd_sb_subscriber_is_payer
+        - custbody_agr_status
         - custbody_pd_collections_portfolio
         - custbody_brl_tran_l_creation_req
         - custbody_pd_crm_legal_document
         - custbody_pd_crm_current_monthly_value
         - custbody_fam_lp_assetdesc
         - custbody_brl_tran_lt_gnre_return_msg
+        - custbody_pd_crm_access_region
         - custbody_pd_sb_send_cancel
+        - custbodyteste_1
         - custbody_pd_sb_previous_month_compet
         - custbody_brl_tran_t_cert_proto
         - custbody_pd_acd_inv_deal
         - custbody_fam_lp_contract
+        - custbody_pd_crm_due_date
         - custbody_brl_tran_t_ref_einvoice
         - custbody_brl_tran_t_rps_num
         - custbody_pd_crm_lead_source
@@ -8165,7 +7149,6 @@ components:
         - custbody_pd_crm_project_leader_contact
         - custbody_fam_lp_totalleasepayment
         - custbody_brl_tran_l_banking_info
-        - custbody_pd_crm_confidentiality_clause
         - custbody_edoc_gen_trans_pdf
         - custbody_sbe_pay_processstatus
         - custbody_fam_jrn_reversal_no
@@ -8209,7 +7192,6 @@ components:
         - custbody_pd_crm_publi_pending
         - custbody_pd_crm_fed_tax_reg_invoicing
         - custbody_brl_tran_i_edoc_bulk_number
-        - custbody_pd_crm_sla
         - custbody_brl_tran_t_ship_info_species
         - custbody_dds_des_soli_discount_ls
         - custbody_pd_code_agency_pix
@@ -8251,7 +7233,6 @@ components:
         - custbody_pd_exclusao
         - custbody_pd_crm_executive_summary
         - custbody_pd_sb_city_payer_cnab
-        - custbody_pd_crm_change_forum
         - custbody_pd_crm_related_to_opportunity
         - custbody_pd_rc_d5menos
         - custbody_brl_tran_d_clearance_date
@@ -8265,10 +7246,8 @@ components:
         - custbody_psg_ei_qr_code
         - custbody_pd_sb_service_delivery
         - custbody_brl_tran_i_seq_number
-        - custbody_pd_crm_discount_total_monthly
         - custbody_dss_wrk_mark_consoli_cb
         - custbody_brl_tran_t_import_decl_num
-        - custbody_pd_crm_due_days
         - custbody_brl_tran_t_sat_serial_number
         - custbody_pd_funcionario
         - custbody_fam_lp_rightofuse
@@ -8396,6 +7375,35 @@ components:
           format: date
           nullable: true
           x-ns-custom-field: true
+        custrecord_pd_cdb_status_aprov:
+          type: object
+          properties:
+            id:
+              title: Internal identifier
+              type: string
+              enum:
+                - '11'
+                - '12'
+                - '13'
+                - '14'
+                - '15'
+                - '16'
+                - '17'
+                - '18'
+                - '19'
+                - '1'
+                - '2'
+                - '3'
+                - '4'
+                - '5'
+                - '6'
+                - '7'
+                - '8'
+                - '9'
+                - '10'
+            refName:
+              title: Reference Name
+              type: string
         id:
           title: Internal ID
           type: string
@@ -8467,7 +7475,7 @@ components:
           items:
             $ref: '#/components/schemas/nsLink'
         custrecord_pd_cdb_origin_case:
-          $ref: '#/components/schemas/nsResource'
+          $ref: '#/components/schemas/customlist_pd_origin_case'
         custrecord_pd_cdb_status:
           $ref: '#/components/schemas/nsResource'
         lastmodifiedby:
@@ -8489,6 +7497,8 @@ components:
         custrecord_pd_cdb_type_block:
           $ref: '#/components/schemas/nsResource'
         custrecord_pd_cdb_irc_block:
+          $ref: '#/components/schemas/nsResource'
+        custrecordcustrecord_pd_cdb_owner_case:
           $ref: '#/components/schemas/nsResource'
         custrecord_pd_cdb_type:
           $ref: '#/components/schemas/nsResource'
@@ -8515,6 +7525,7 @@ components:
         - custrecord_pd_cdb_contact
         - custrecord_pd_cdb_type_block
         - custrecord_pd_cdb_origin_case
+        - custrecord_pd_cdb_status_aprov
         - id
         - custrecord_pd_cdb_sumary
         - custrecord_pd_cdb_sales_rep
@@ -8522,6 +7533,7 @@ components:
         - created
         - custrecord_pd_cdb_date_unblock
         - custrecord_pd_cdb_type
+        - custrecordcustrecord_pd_cdb_owner_case
         - altName
         - custrecord_pd_cdb_cnpj
         - abbreviation
@@ -8531,6 +7543,108 @@ components:
         - custrecord_pd_cdb_last_payment
         - custrecord_pd_cdb_date_closed
       x-ns-custom-record: true
+    customlist_pd_list_rcm_scmCollection:
+      type: object
+      properties:
+        totalResults:
+          title: Total Results
+          type: integer
+          format: int64
+          readOnly: true
+        items:
+          title: Items
+          type: array
+          description: An array field that represents a collection of elements, for example, sublist lines, multiselect items, or search results.
+          items:
+            $ref: '#/components/schemas/customlist_pd_list_rcm_scm'
+        links:
+          title: Links
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/nsLink'
+        count:
+          title: Count
+          type: integer
+          format: int64
+          readOnly: true
+        hasMore:
+          title: Has More Results
+          type: boolean
+          readOnly: true
+        offset:
+          title: Query Offset
+          type: integer
+          format: int64
+          readOnly: true
+    customlist_pd_origin_caseCollection:
+      type: object
+      properties:
+        totalResults:
+          title: Total Results
+          type: integer
+          format: int64
+          readOnly: true
+        items:
+          title: Items
+          type: array
+          description: An array field that represents a collection of elements, for example, sublist lines, multiselect items, or search results.
+          items:
+            $ref: '#/components/schemas/customlist_pd_origin_case'
+        links:
+          title: Links
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/nsLink'
+        count:
+          title: Count
+          type: integer
+          format: int64
+          readOnly: true
+        hasMore:
+          title: Has More Results
+          type: boolean
+          readOnly: true
+        offset:
+          title: Query Offset
+          type: integer
+          format: int64
+          readOnly: true
+    customlist_pd_cdp_statusCollection:
+      type: object
+      properties:
+        totalResults:
+          title: Total Results
+          type: integer
+          format: int64
+          readOnly: true
+        items:
+          title: Items
+          type: array
+          description: An array field that represents a collection of elements, for example, sublist lines, multiselect items, or search results.
+          items:
+            $ref: '#/components/schemas/customlist_pd_cdp_status'
+        links:
+          title: Links
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/nsLink'
+        count:
+          title: Count
+          type: integer
+          format: int64
+          readOnly: true
+        hasMore:
+          title: Has More Results
+          type: boolean
+          readOnly: true
+        offset:
+          title: Query Offset
+          type: integer
+          format: int64
+          readOnly: true
     inventoryItem-locationsCollection:
       type: object
       properties:
@@ -8592,6 +7706,56 @@ components:
         partner:
           $ref: '#/components/schemas/nsResource'
       x-ns-filterable: []
+    customlist_pd_cdp_priority:
+      type: object
+      properties:
+        recordId:
+          title: Record ID
+          type: integer
+          format: int64
+          nullable: true
+          x-ns-custom-field: true
+        isInactive:
+          title: Is Inactive
+          type: boolean
+          x-ns-custom-field: true
+        scriptId:
+          title: Script ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        name:
+          title: Name
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        externalId:
+          title: External ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        id:
+          title: Internal ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        refName:
+          title: Reference Name
+          type: string
+        links:
+          title: Links
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/nsLink'
+      x-ns-filterable:
+        - recordId
+        - isInactive
+        - scriptId
+        - name
+        - externalId
+        - id
+      x-ns-custom-record: true
     salesOrder-taxDetailsCollection:
       type: object
       properties:
@@ -8945,6 +8109,56 @@ components:
         subscription:
           $ref: '#/components/schemas/nsResource'
       x-ns-filterable: []
+    customlist_pd_list_rcm_scm:
+      type: object
+      properties:
+        recordId:
+          title: Record ID
+          type: integer
+          format: int64
+          nullable: true
+          x-ns-custom-field: true
+        isInactive:
+          title: Is Inactive
+          type: boolean
+          x-ns-custom-field: true
+        scriptId:
+          title: Script ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        name:
+          title: Name
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        externalId:
+          title: External ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        id:
+          title: Internal ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        refName:
+          title: Reference Name
+          type: string
+        links:
+          title: Links
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/nsLink'
+      x-ns-filterable:
+        - recordId
+        - isInactive
+        - scriptId
+        - name
+        - externalId
+        - id
+      x-ns-custom-record: true
     salesOrder-partnersCollection:
       type: object
       properties:
@@ -9034,6 +8248,40 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/salesOrder-salesTeamElement'
+    customrecord_pd_family_productCollection:
+      type: object
+      properties:
+        totalResults:
+          title: Total Results
+          type: integer
+          format: int64
+          readOnly: true
+        items:
+          title: Items
+          type: array
+          description: An array field that represents a collection of elements, for example, sublist lines, multiselect items, or search results.
+          items:
+            $ref: '#/components/schemas/customrecord_pd_family_product'
+        links:
+          title: Links
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/nsLink'
+        count:
+          title: Count
+          type: integer
+          format: int64
+          readOnly: true
+        hasMore:
+          title: Has More Results
+          type: boolean
+          readOnly: true
+        offset:
+          title: Query Offset
+          type: integer
+          format: int64
+          readOnly: true
     inventoryItem-itemVendor-itemVendorPrice:
       type: object
       properties:
@@ -9156,6 +8404,56 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/customer-taxRegistrationElement'
+    customlist_pd_origin_case:
+      type: object
+      properties:
+        recordId:
+          title: Record ID
+          type: integer
+          format: int64
+          nullable: true
+          x-ns-custom-field: true
+        isInactive:
+          title: Is Inactive
+          type: boolean
+          x-ns-custom-field: true
+        scriptId:
+          title: Script ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        name:
+          title: Name
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        externalId:
+          title: External ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        id:
+          title: Internal ID
+          type: string
+          nullable: true
+          x-ns-custom-field: true
+        refName:
+          title: Reference Name
+          type: string
+        links:
+          title: Links
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/nsLink'
+      x-ns-filterable:
+        - recordId
+        - isInactive
+        - scriptId
+        - name
+        - externalId
+        - id
+      x-ns-custom-record: true
     inventoryItem-priceElement:
       type: object
       properties:
@@ -11336,7 +10634,7 @@ components:
         contact:
           $ref: '#/components/schemas/nsResource'
         custentity_pd_sb_category_customer:
-          $ref: '#/components/schemas/nsResource'
+          $ref: '#/components/schemas/customlist_pd_sb_category_customer'
         custentity_pd_crm_plan:
           $ref: '#/components/schemas/nsResourceCollection'
         custentity_pd_crm_status_customer:
@@ -11660,6 +10958,40 @@ components:
         - category
         - territory
         - custentity_pd_sb_category_customer
+    customlist_pd_sb_category_customerCollection:
+      type: object
+      properties:
+        totalResults:
+          title: Total Results
+          type: integer
+          format: int64
+          readOnly: true
+        items:
+          title: Items
+          type: array
+          description: An array field that represents a collection of elements, for example, sublist lines, multiselect items, or search results.
+          items:
+            $ref: '#/components/schemas/customlist_pd_sb_category_customer'
+        links:
+          title: Links
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/nsLink'
+        count:
+          title: Count
+          type: integer
+          format: int64
+          readOnly: true
+        hasMore:
+          title: Has More Results
+          type: boolean
+          readOnly: true
+        offset:
+          title: Query Offset
+          type: integer
+          format: int64
+          readOnly: true
     customer-salesTeamElement:
       type: object
       properties:
